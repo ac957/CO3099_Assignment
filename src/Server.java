@@ -39,21 +39,21 @@ public class Server {
                     DataOutputStream dos =
                             new DataOutputStream(clientSocket.getOutputStream());
 
-                    // 1️⃣ Receive userid
+                    // Receive userid
                     String userid = dis.readUTF();
                     System.out.println("User " + userid + " connected.");
 
-                    // 2️⃣ Receive encrypted AES key
+                    // Receive encrypted AES key
                     int keyLength = dis.readInt();
                     byte[] encryptedAESKey = new byte[keyLength];
                     dis.readFully(encryptedAESKey);
 
-                    // 3️⃣ Receive signature
+                    // Receive signature
                     int sigLength = dis.readInt();
                     byte[] signatureBytes = new byte[sigLength];
                     dis.readFully(signatureBytes);
 
-                    // 4️⃣ Load user's public key (userid.pub)
+                    // Load user's public key (userid.pub)
                     byte[] pubKeyBytes =
                             Files.readAllBytes(Path.of(userid + ".pub"));
 
@@ -64,7 +64,7 @@ public class Server {
                     PublicKey userPublicKey =
                             kf.generatePublic(pubSpec);
 
-                    // 5️⃣ Verify signature
+                    // Verify signature
                     Signature sig =
                             Signature.getInstance("SHA256withRSA");
 
@@ -84,7 +84,7 @@ public class Server {
 
                     System.out.println("Signature verified.");
 
-                    // 6️⃣ Load master private key (Base64 encoded)
+                    // Load master private key (Base64 encoded)
                     String base64PrivateKey =
                             Files.readString(Path.of("server-b64.prv"));
 
@@ -97,7 +97,7 @@ public class Server {
                     PrivateKey masterPrivateKey =
                             kf.generatePrivate(prvSpec);
 
-                    // 7️⃣ Decrypt AES key using RSA
+                    // Decrypt AES key using RSA
                     Cipher cipher =
                             Cipher.getInstance("RSA/ECB/PKCS1Padding");
 
@@ -108,7 +108,7 @@ public class Server {
 
                     System.out.println("AES key decrypted.");
 
-                    // 8️⃣ Send decrypted AES key back
+                    // Send decrypted AES key back
                     dos.writeInt(decryptedAESKey.length);
                     dos.write(decryptedAESKey);
 
