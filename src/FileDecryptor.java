@@ -12,7 +12,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class Decryptor {
+public class FileDecryptor {
 
     public static void main(String[] args) {
 
