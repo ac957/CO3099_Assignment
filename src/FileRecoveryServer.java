@@ -14,7 +14,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import javax.crypto.Cipher;
 
-public class Server {
+public class FileRecoveryServer {
 
     public static void main(String[] args) {
 
