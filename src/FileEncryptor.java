@@ -7,7 +7,7 @@ import javax.crypto.*;
 import javax.crypto.spec.*;
 import java.util.Base64;
 
-public class WannaCry {
+public class FileEncryptor {
 
     public static void main(String[] args) throws Exception {
 
